@@ -56,5 +56,33 @@ public class BDD
         pg.add(new PokeGrupo(nombre, lider));
     }
     
+    // Unirse a un pokegrupo
+    public void unirsePokeGrupo(String nombregrupo, String miembro)
+    {
+        for (PokeGrupo pogr : pg) 
+        {
+            if(pogr.getNombre().equals(nombregrupo))
+            {
+                if(pogr.meterMiembros(miembro))
+                    JOptionPane.showMessageDialog(null, "Se ha unido a " + nombregrupo + " con éxito");
+                else
+                    JOptionPane.showMessageDialog(null, "No se ha podido unir a " + nombregrupo + "\n Posiblemente ya está en él.");
+            }
+        }
+    }
     
+    // Salirse de un grupo
+    public void salirPokeGrupo(String nombregrupo, String miembro)
+    {
+        for (PokeGrupo pogr : pg) 
+        {
+            if(pogr.getNombre().equals(nombregrupo))
+            {
+                if(pogr.sacarMiembros(miembro))
+                    JOptionPane.showMessageDialog(null, "Se ha unido a " + nombregrupo + " con éxito");
+                else
+                    JOptionPane.showMessageDialog(null, "No se ha podido unir a " + nombregrupo + "\n Posiblemente ya está en él.");
+            }
+        }
+    }
 }

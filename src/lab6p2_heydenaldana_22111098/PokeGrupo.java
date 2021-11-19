@@ -37,17 +37,33 @@ public class PokeGrupo
     }
     
     
-    public void meterMiembros(String nombre)
+    public boolean meterMiembros(String nombre)
     {
         for (String m : miembros) 
         {
             if(m.equals(nombre))
             {
                 JOptionPane.showMessageDialog(null, nombre + " ya es miembro de este grupo.");
-                return;
+                return false;
             }
         }
         miembros.add(nombre);
+        return true;
+    }
+    
+    
+     public boolean sacarMiembros(String nombre)
+    {
+        for (String m : miembros) 
+        {
+            if(m.equals(nombre))
+            {
+                JOptionPane.showMessageDialog(null, nombre + " ya es miembro de este grupo.");
+                return false;
+            }
+        }
+        miembros.remove(nombre);
+        return true;
     }
     
     // get y set
