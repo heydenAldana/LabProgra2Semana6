@@ -14,6 +14,7 @@ public class BDD
     private ArrayList <Usuario> user = new ArrayList<Usuario>();
     private ArrayList <Pokemon> pok = new ArrayList<Pokemon>();
     private ArrayList <Pokedex> poke = new ArrayList<Pokedex>();
+    private ArrayList <PokeGrupo> pg = new ArrayList<PokeGrupo>();
     
     // Agrega un usuario al bdd
     public void agregarUsuario(String nombre, String apellido, String username, String contrasena, Date fechanac, Color colorfav)
@@ -31,4 +32,6 @@ public class BDD
         }
         return false;
     }
+    
+    
 }
