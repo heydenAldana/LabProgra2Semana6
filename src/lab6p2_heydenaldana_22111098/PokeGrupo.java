@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class PokeGrupo 
 {
@@ -33,6 +34,20 @@ public class PokeGrupo
         if(fecha.toString().contains("-"))
             fecha.toString().replace("-", "/");
         return fecha;
+    }
+    
+    
+    public void meterMiembros(String nombre)
+    {
+        for (String m : miembros) 
+        {
+            if(m.equals(nombre))
+            {
+                JOptionPane.showMessageDialog(null, nombre + " ya es miembro de este grupo.");
+                return;
+            }
+        }
+        miembros.add(nombre);
     }
     
     // get y set

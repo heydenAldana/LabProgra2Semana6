@@ -3,6 +3,7 @@ package lab6p2_heydenaldana_22111098;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  * Esta vaina va a funcionar como Base De Datos
@@ -19,6 +20,14 @@ public class BDD
     // Agrega un usuario al bdd
     public void agregarUsuario(String nombre, String apellido, String username, String contrasena, Date fechanac, Color colorfav)
     {
+        for (Usuario u : user) 
+        {
+            if(u.getUsername().equals(nombre))
+            {
+                JOptionPane.showMessageDialog(null, "Este usuario ya existe.");
+                return;
+            }
+        }
         user.add(new Usuario(nombre, apellido, username, contrasena, fechanac, colorfav));
     }
     
@@ -31,6 +40,20 @@ public class BDD
                 return true;
         }
         return false;
+    }
+    
+    // Crear un pokegrupo
+    public void crearPokeGrupo(String nombre, String lider)
+    {
+        for (PokeGrupo pogr : pg) 
+        {
+            if(pogr.getNombre().equals(nombre))
+            {
+                JOptionPane.showMessageDialog(null, "Este nombre ya existe.");
+                return;
+            }
+        }
+        pg.add(new PokeGrupo(nombre, lider));
     }
     
     
