@@ -14,7 +14,7 @@ public class Usuario
     private Date fechanac;
     private int edad;
     private Color colorfav;
-    private Pokedex pokedex[] = new Pokedex[3];
+    private Pokedex pokedex[];
     
     // constructor
     public Usuario(String nombre, String apellido, String username, String password, Date fechanac, Color colorfav)
@@ -25,6 +25,7 @@ public class Usuario
         this.password = password;
         this.fechanac = fechanac;
         this.edad = calcularEdad(fechanac);
+        this.pokedex  = new Pokedex[3];
     }
     
     // ------------- funciones aparte
