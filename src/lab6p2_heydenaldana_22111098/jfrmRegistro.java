@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class jfrmRegistro extends javax.swing.JFrame {
 
     // Atributos
-    ArrayList <Usuario> user = new ArrayList<Usuario>();
+    private BDD bdd = new BDD();
     Color colorseleccionado;
     
     /**
@@ -77,6 +77,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
 
         tnombres.setBackground(new java.awt.Color(0, 153, 153));
         tnombres.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tnombres.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tnombres.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -85,6 +86,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
 
         tapellidos.setBackground(new java.awt.Color(0, 153, 153));
         tapellidos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tapellidos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tapellidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -93,6 +95,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
 
         tusername.setBackground(new java.awt.Color(0, 153, 153));
         tusername.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tusername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tusername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -101,6 +104,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
 
         tcontrasena.setBackground(new java.awt.Color(0, 153, 153));
         tcontrasena.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tcontrasena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tcontrasena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -109,6 +113,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
 
         tfechanac.setBackground(new java.awt.Color(0, 153, 153));
         tfechanac.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tfechanac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfechanac.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
@@ -118,7 +123,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
         bcolor.setBackground(new java.awt.Color(0, 153, 153));
         bcolor.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         bcolor.setText("Elegir");
-        bcolor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
+        bcolor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bcolor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bcolorMouseClicked(evt);
@@ -128,7 +133,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
         bregistrar.setBackground(new java.awt.Color(0, 153, 153));
         bregistrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         bregistrar.setText("Registrar");
-        bregistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
+        bregistrar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bregistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bregistrarActionPerformed(evt);
@@ -138,7 +143,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
         bvolver.setBackground(new java.awt.Color(153, 51, 0));
         bvolver.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         bvolver.setText("Volver");
-        bvolver.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 153)));
+        bvolver.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bvolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bvolverActionPerformed(evt);
@@ -255,7 +260,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
         {
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Date fechanacformat = formato.parse(tfechanac.getText());
-            user.add(new Usuario(tnombres.getText(), tapellidos.getText(), tusername.getText(), tcontrasena.getText(), fechanacformat, colorseleccionado));
+            bdd.agregarUsuario(tnombres.getText(), tapellidos.getText(), tusername.getText(), tcontrasena.getText(), fechanacformat, colorseleccionado);
             JOptionPane.showMessageDialog(this, "Se ha registrado exitosamente");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha habido un error.\n No se puede registrar a los usuarios.");
@@ -265,7 +270,7 @@ public class jfrmRegistro extends javax.swing.JFrame {
     
     // VOLVER AL MENU de login
     private void bvolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bvolverActionPerformed
-        JFrame login = new JFrame();
+        jfrmLogin login = new jfrmLogin();
         login.setVisible(true);
         this.hide();
     }//GEN-LAST:event_bvolverActionPerformed
