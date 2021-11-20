@@ -136,4 +136,52 @@ public class BDD
     {
         return tempuser;
     }
+    
+    
+    // Agregar un pokemon
+    public void addPokemon (String nombre, double danio, double vit, String velocidad)
+    {
+        for (Pokemon po : pok) 
+        {
+            if(po.getNombre().equals(nombre))
+            {
+                JOptionPane.showMessageDialog(null, "Este nombre ya existe.");
+                return;
+            }
+           
+        }
+         pok.add(new Pokemon(nombre, danio, vit, velocidad));
+    }
+    
+    public void editarPokemon (String nombre, double danio, double vit, String velocidad)
+    {
+        for (Pokemon po : pok) 
+        {
+            if(po.getNombre().equals(nombre))
+            {
+                po.setNombre(nombre);
+                po.setDanio(danio);
+                po.setVit(vit);
+                po.setVelocidad(velocidad);
+                return;
+            }
+           
+        }
+        JOptionPane.showMessageDialog(null, "Este nombre no existe.");
+    }
+    
+    public void eliminarPokemon(String nombre)
+    {
+        int pos = 0;
+        for (Pokemon po : pok) 
+        {
+            if(po.getNombre().equals(nombre))
+            {
+                pok.remove(pos);
+                return;
+            }
+            pos++;
+        }
+        JOptionPane.showMessageDialog(null, "Este nombre no existe.");
+    }
 }

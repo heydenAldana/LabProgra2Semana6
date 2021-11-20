@@ -7,10 +7,10 @@ class Pokemon
     private String nombre;
     private double danio;
     private double vit;
-    private int velocidad;
+    private String velocidad;
     
     // constructor
-    public Pokemon(String nombre, double danio, double vit, int velocidad)
+    public Pokemon(String nombre, double danio, double vit, String velocidad)
     {
         this.nombre = nombre;
         this.danio = danio;
@@ -43,11 +43,11 @@ class Pokemon
         this.vit = vit;
     }
 
-    public int getVelocidad() {
+    public String getVelocidad() {
         return velocidad;
     }
 
-    public void setVelocidad(int velocidad) {
+    public void setVelocidad(String velocidad) {
         this.velocidad = velocidad;
     }
     

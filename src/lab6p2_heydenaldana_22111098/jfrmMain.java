@@ -8,6 +8,9 @@ package lab6p2_heydenaldana_22111098;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 /**
  *
@@ -18,6 +21,8 @@ public class jfrmMain extends javax.swing.JFrame {
     // Atributos
     private BDD bdd = new BDD();
     String grupoelegido;
+    DefaultMutableTreeNode selectedNode;
+    private boolean elec = false, psiq = false, vene = false, fant = false;
     
     /** Creates new form jfrmMain */
     public jfrmMain() {
@@ -69,20 +74,21 @@ public class jfrmMain extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jt_personas = new javax.swing.JTree();
         jLabel6 = new javax.swing.JLabel();
-        tgrupo1 = new javax.swing.JTextField();
-        tgrupo2 = new javax.swing.JTextField();
+        tnombre = new javax.swing.JTextField();
+        tdanio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        tgrupo3 = new javax.swing.JTextField();
+        tvit = new javax.swing.JTextField();
         jvit = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
-        jRadioButton7 = new javax.swing.JRadioButton();
+        Electrico = new javax.swing.JRadioButton();
+        Psiquico = new javax.swing.JRadioButton();
+        Venenoso = new javax.swing.JRadioButton();
+        Fantasma = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -245,7 +251,14 @@ public class jfrmMain extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
 
         jt_personas.setBackground(new java.awt.Color(204, 204, 204));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Personas");
+        jt_personas.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 1");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 2");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Pokedex 3");
+        treeNode1.add(treeNode2);
         jt_personas.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jt_personas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -257,20 +270,20 @@ public class jfrmMain extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Nombre");
 
-        tgrupo1.setBackground(new java.awt.Color(204, 204, 204));
-        tgrupo1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tgrupo1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tnombre.setBackground(new java.awt.Color(204, 204, 204));
+        tnombre.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tnombre.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        tgrupo2.setBackground(new java.awt.Color(204, 204, 204));
-        tgrupo2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tgrupo2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tdanio.setBackground(new java.awt.Color(204, 204, 204));
+        tdanio.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tdanio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Daño");
 
-        tgrupo3.setBackground(new java.awt.Color(204, 204, 204));
-        tgrupo3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tgrupo3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tvit.setBackground(new java.awt.Color(204, 204, 204));
+        tvit.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tvit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jvit.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jvit.setText("Vitalidad");
@@ -279,35 +292,44 @@ public class jfrmMain extends javax.swing.JFrame {
         jLabel8.setText("Velocidad:");
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel9.setText("Velocidad:");
+        jLabel9.setText("Tipo");
 
         jRadioButton1.setBackground(new java.awt.Color(153, 153, 153));
         jRadioButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton1.setText("jRadioButton1");
+        jRadioButton1.setText("Baja");
 
         jRadioButton2.setBackground(new java.awt.Color(153, 153, 153));
         jRadioButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton2.setText("jRadioButton1");
+        jRadioButton2.setText("Normal");
 
         jRadioButton3.setBackground(new java.awt.Color(153, 153, 153));
         jRadioButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton3.setText("jRadioButton1");
+        jRadioButton3.setText("Alta");
 
-        jRadioButton4.setBackground(new java.awt.Color(153, 153, 153));
-        jRadioButton4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton4.setText("jRadioButton1");
+        Electrico.setBackground(new java.awt.Color(153, 153, 153));
+        Electrico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Electrico.setText("Electrico");
 
-        jRadioButton5.setBackground(new java.awt.Color(153, 153, 153));
-        jRadioButton5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton5.setText("jRadioButton1");
+        Psiquico.setBackground(new java.awt.Color(153, 153, 153));
+        Psiquico.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Psiquico.setText("Psiquico");
 
-        jRadioButton6.setBackground(new java.awt.Color(153, 153, 153));
-        jRadioButton6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton6.setText("jRadioButton1");
+        Venenoso.setBackground(new java.awt.Color(153, 153, 153));
+        Venenoso.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Venenoso.setText("Venenoso");
 
-        jRadioButton7.setBackground(new java.awt.Color(153, 153, 153));
-        jRadioButton7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jRadioButton7.setText("jRadioButton1");
+        Fantasma.setBackground(new java.awt.Color(153, 153, 153));
+        Fantasma.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        Fantasma.setText("Fantasma");
+
+        jButton1.setBackground(new java.awt.Color(153, 153, 153));
+        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -321,55 +343,60 @@ public class jfrmMain extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(tgrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jRadioButton1)
+                                .addComponent(jLabel8)))
                         .addGap(31, 31, 31)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addComponent(tgrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tdanio, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jvit)
-                                    .addComponent(tgrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tvit, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(46, 46, 46))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton3))
-                        .addGap(89, 89, 89)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton5)
-                            .addComponent(jRadioButton6)
-                            .addComponent(jRadioButton7))
-                        .addContainerGap())))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton3))
+                        .addGap(78, 78, 78)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Electrico)
+                            .addComponent(Psiquico)
+                            .addComponent(Venenoso)
+                            .addComponent(Fantasma))
+                        .addContainerGap())
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jRadioButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tgrupo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tdanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tgrupo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jvit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tgrupo3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tvit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(45, 45, 45)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -377,17 +404,19 @@ public class jfrmMain extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton4))
+                            .addComponent(Electrico))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton5))
+                            .addComponent(Psiquico))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton6))
+                            .addComponent(Venenoso))
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton7))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Fantasma)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -482,26 +511,67 @@ public class jfrmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_bcreargrupoActionPerformed
 
     private void jt_personasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_personasMouseClicked
-        // TODO add your handling code here:
-        if (evt.isMetaDown()) {
-            //seleccionar un nodo con click derecho
-            int row = jt_personas.getClosestRowForLocation(
-                evt.getX(), evt.getY());
-            jt_personas.setSelectionRow(row);
-            Object v1
-            = jt_personas.getSelectionPath().
-            getLastPathComponent();
-            nodo_seleccionado = (DefaultMutableTreeNode) v1;
-            if (nodo_seleccionado.getUserObject() instanceof Persona) {
-                persona_seleccionada
-                = (Persona) nodo_seleccionado.
-                getUserObject();
-                menu_popup.show(evt.getComponent(),
-                    evt.getX(), evt.getY());
+        TreeSelectionModel smt = jt_personas.getSelectionModel();
+        if(smt.getSelectionCount() > 0)
+        {
+            try
+            {
+                // Obtenemos el nodo sleeccionado
+                 selectedNode = (DefaultMutableTreeNode) jt_personas.getLastSelectedPathComponent();
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Arbol no disponible.");
             }
-
         }
     }//GEN-LAST:event_jt_personasMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        // Creamos una instancia del nodo nuevo
+        DefaultMutableTreeNode newNode = null;
+        if(Electrico.isSelected())
+        {
+            newNode = new DefaultMutableTreeNode("Electrico");
+            elec = true;
+        }
+        if(Psiquico.isSelected())
+        {
+            newNode = new DefaultMutableTreeNode("Psiquico");
+            psiq = true;
+        }
+        if(Venenoso.isSelected())
+        {
+            newNode = new DefaultMutableTreeNode("Venenoso");
+            vene = true;
+        }
+        if(Fantasma.isSelected())
+        {
+            newNode = new DefaultMutableTreeNode("Fantasma");
+            fant = true;
+        }
+            
+        // lo agregamos (si no esta repetido
+        if(!elec || !psiq || !vene || !fant)
+            selectedNode.add(newNode);
+
+        // Ahora agregamos otro nodo en la categoria
+        DefaultMutableTreeNode pokemonNode = new DefaultMutableTreeNode(tnombre.getText());
+        // selectedNode = newNode;
+        newNode.add(pokemonNode);
+        
+        // Reload
+        DefaultTreeModel model = (DefaultTreeModel) jt_personas.getModel();
+        model.reload();
+        
+        // agregamops a la bdd
+        try
+        {
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo agregar.\n\n ¿Dejo algun cuadro sin rellenar?");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -539,12 +609,17 @@ public class jfrmMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Electrico;
+    private javax.swing.JRadioButton Fantasma;
+    private javax.swing.JRadioButton Psiquico;
+    private javax.swing.JRadioButton Venenoso;
     private javax.swing.JButton bcreargrupo;
     private javax.swing.JButton bsalir;
     private javax.swing.JButton bunirmegrupo;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbgrupos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -561,10 +636,6 @@ public class jfrmMain extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
-    private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -572,10 +643,10 @@ public class jfrmMain extends javax.swing.JFrame {
     private javax.swing.JLabel juser;
     private javax.swing.JLabel jvit;
     private javax.swing.JTextArea lmiembros;
+    private javax.swing.JTextField tdanio;
     private javax.swing.JTextField tgrupo;
-    private javax.swing.JTextField tgrupo1;
-    private javax.swing.JTextField tgrupo2;
-    private javax.swing.JTextField tgrupo3;
+    private javax.swing.JTextField tnombre;
+    private javax.swing.JTextField tvit;
     // End of variables declaration//GEN-END:variables
 
 }
