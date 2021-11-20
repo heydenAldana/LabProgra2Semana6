@@ -8,6 +8,7 @@ package lab6p2_heydenaldana_22111098;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
@@ -51,8 +52,7 @@ public class jfrmMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         juser = new javax.swing.JLabel();
@@ -89,6 +89,12 @@ public class jfrmMain extends javax.swing.JFrame {
         Venenoso = new javax.swing.JRadioButton();
         Fantasma = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+
+        jPopupMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPopupMenu1MouseClicked(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -418,7 +424,7 @@ public class jfrmMain extends javax.swing.JFrame {
                             .addComponent(Fantasma)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pokemones", jPanel4);
@@ -567,11 +573,29 @@ public class jfrmMain extends javax.swing.JFrame {
         // agregamops a la bdd
         try
         {
-            
+            String speed = "";
+            if(jRadioButton1.isSelected())
+                speed = "Baja";
+            if(jRadioButton2.isSelected())
+                speed = "Normal";
+            if(jRadioButton3.isSelected())
+                speed = "Alta";
+            bdd.addPokemon(tnombre.getText(), Double.parseDouble(tdanio.getText()), Double.parseDouble(tvit.getText()), speed);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo agregar.\n\n ¿Dejo algun cuadro sin rellenar?");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPopupMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu1MouseClicked
+        // TODO add your handling code here:
+        if (jt_personas.getSelectionCount() >= 0) {
+            if (evt.isMetaDown()) {
+                JPopupMenu popup_modificar = new JPopupMenu();
+                popup_modificar.show(evt.getComponent(),
+                        evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_jPopupMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -616,8 +640,6 @@ public class jfrmMain extends javax.swing.JFrame {
     private javax.swing.JButton bcreargrupo;
     private javax.swing.JButton bsalir;
     private javax.swing.JButton bunirmegrupo;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbgrupos;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -633,6 +655,7 @@ public class jfrmMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
