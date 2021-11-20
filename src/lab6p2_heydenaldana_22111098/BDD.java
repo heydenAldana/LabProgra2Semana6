@@ -16,6 +16,8 @@ public class BDD
     private ArrayList <Pokemon> pok = new ArrayList<Pokemon>();
     private ArrayList <Pokedex> poke = new ArrayList<Pokedex>();
     private ArrayList <PokeGrupo> pg = new ArrayList<PokeGrupo>();
+    private String tempuser, tempgrupo;
+    
     
     // Agrega un usuario al bdd
     public void agregarUsuario(String nombre, String apellido, String username, String contrasena, Date fechanac, Color colorfav)
@@ -37,7 +39,10 @@ public class BDD
         for (Usuario u : user) 
         {
             if(u.getUsername().equals(username) && u.getPassword().equals(password))
+            {
+                tempuser = username;
                 return true;
+            }
         }
         return false;
     }
@@ -54,6 +59,7 @@ public class BDD
             }
         }
         pg.add(new PokeGrupo(nombre, lider));
+        tempgrupo = nombre;
     }
     
     // Unirse a un pokegrupo
@@ -84,5 +90,50 @@ public class BDD
                     JOptionPane.showMessageDialog(null, "No se ha podido unir a " + nombregrupo + "\n Posiblemente ya está en él.");
             }
         }
+    }
+    
+    
+    // Retorna el numero y la lista de grupos que existen
+    public ArrayList<String> rellenarLista(int contador)
+    {
+        ArrayList<String> elementos = new ArrayList<String>();
+        if(pg.isEmpty())
+        {
+            JOptionPane.showMessageDialog(null, "No hay grupos creados");
+            return null;
+        }
+        if(pg.get(contador) != null)
+        {
+            elementos.add(pg.get(contador).getNombre());
+            return rellenarLista(contador);
+        }
+        return elementos;
+    }
+    
+    
+    // Rellenar una lista con los miembros de mi grupo
+    public String misMiembrosGrupo(String lider)
+    {
+        for (PokeGrupo pgr : pg) 
+        {
+            if(pgr.getLider().equals(lider))
+            {
+                return pgr.listarMiembros();
+            }
+        }
+        return "";
+    }
+    
+    
+    // Obtener el nombre del grupo
+    public String getnombreGrupo()
+    {
+        return tempgrupo;
+    }
+    
+    // Obtener el nombre del lider
+    public String getnombreLider()
+    {
+        return tempuser;
     }
 }

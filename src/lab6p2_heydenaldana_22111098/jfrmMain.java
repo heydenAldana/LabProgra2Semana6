@@ -17,7 +17,7 @@ public class jfrmMain extends javax.swing.JFrame {
 
     // Atributos
     private BDD bdd = new BDD();
-    
+    String grupoelegido;
     
     /** Creates new form jfrmMain */
     public jfrmMain() {
@@ -27,9 +27,14 @@ public class jfrmMain extends javax.swing.JFrame {
         jLabel2.setForeground(Color.DARK_GRAY);
         jLabel3.setForeground(Color.DARK_GRAY);
         jLabel4.setForeground(Color.DARK_GRAY);
+        jLabel5.setForeground(Color.DARK_GRAY);
+        jLabel5.setText(jLabel5.getText() + juser.getText());
+        jLabel4.setText(jLabel4.getText() + bdd.getnombreGrupo());
         bsalir.setForeground(Color.DARK_GRAY);
         bunirmegrupo.setForeground(Color.DARK_GRAY);
         bcreargrupo.setForeground(Color.DARK_GRAY);
+        lmiembros.setForeground(Color.DARK_GRAY);
+        rellenar();
     }
 
     /** This method is called from within the constructor to
@@ -49,14 +54,15 @@ public class jfrmMain extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         bsalir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        lmiembros = new javax.swing.JList<>();
         cbgrupos = new javax.swing.JComboBox<>();
         bunirmegrupo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tgrupo = new javax.swing.JTextField();
         bcreargrupo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lmiembros = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,14 +113,14 @@ public class jfrmMain extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Unirme a un PokeGrupo");
 
-        lmiembros.setBackground(new java.awt.Color(204, 204, 204));
-        lmiembros.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        lmiembros.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(lmiembros);
-
         cbgrupos.setBackground(new java.awt.Color(204, 204, 204));
         cbgrupos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbgrupos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cbgrupos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbgruposMouseClicked(evt);
+            }
+        });
 
         bunirmegrupo.setBackground(new java.awt.Color(102, 102, 102));
         bunirmegrupo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -137,15 +143,32 @@ public class jfrmMain extends javax.swing.JFrame {
         bcreargrupo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         bcreargrupo.setText("Crear PokeGrupo");
         bcreargrupo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bcreargrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bcreargrupoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Nombre del PokeGrupo:");
+
+        jScrollPane2.setBackground(new java.awt.Color(204, 204, 204));
+
+        lmiembros.setEditable(false);
+        lmiembros.setBackground(new java.awt.Color(204, 204, 204));
+        lmiembros.setColumns(20);
+        lmiembros.setRows(5);
+        lmiembros.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jScrollPane2.setViewportView(lmiembros);
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("Lider: ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -164,8 +187,9 @@ public class jfrmMain extends javax.swing.JFrame {
                         .addComponent(bsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -175,7 +199,9 @@ public class jfrmMain extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bsalir, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(36, 36, 36)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -191,7 +217,7 @@ public class jfrmMain extends javax.swing.JFrame {
                         .addComponent(bcreargrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(17, 17, 17))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane2)
                         .addContainerGap())))
         );
 
@@ -247,14 +273,57 @@ public class jfrmMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // RELLENAR LISTA DE MIEMBROS
+    private void rellenar()
+    {
+        try
+        {
+            lmiembros.setText(bdd.misMiembrosGrupo(juser.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "La lista de integrantes no esta disponible");
+        }
+    }
+    
+    
+    // UNIRSE A UN GRUPO
     private void bunirmegrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bunirmegrupoActionPerformed
         try
         {
-            bdd.unirsePokeGrupo(cbgrupos.getItemAt(cbgrupos.getSelectedIndex()), juser.getText());
+            bdd.unirsePokeGrupo(grupoelegido, juser.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No es posible realizar esta operacion");
         }
     }//GEN-LAST:event_bunirmegrupoActionPerformed
+
+    // LISTAR LOS POKEGRUPOS Y ELEGIR EL INDICADO POR EL USUARIO
+    private void cbgruposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbgruposMouseClicked
+        // TODO add your handling code here:
+        try
+        {
+            for (int i = 0; i < bdd.rellenarLista(0).size(); i++) 
+            {
+                String elemento = bdd.rellenarLista(i).get(i);
+                cbgrupos.insertItemAt(elemento, i);
+            }
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Esta funcion no está disponible.\n\n Error: " + e.getMessage());
+        }
+        
+        grupoelegido = (String)cbgrupos.getSelectedItem();
+    }//GEN-LAST:event_cbgruposMouseClicked
+
+    
+    // CREAR EL POKE GRUPO
+    private void bcreargrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcreargrupoActionPerformed
+        try
+        {
+            bdd.crearPokeGrupo(juser.getText(), tgrupo.getText());
+            cbgrupos.removeAllItems();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se puede realizar esta tarea.\n ¿Escribio el nombre?");
+        }
+    }//GEN-LAST:event_bcreargrupoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,14 +369,15 @@ public class jfrmMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel juser;
-    private javax.swing.JList<String> lmiembros;
+    private javax.swing.JTextArea lmiembros;
     private javax.swing.JTextField tgrupo;
     // End of variables declaration//GEN-END:variables
 

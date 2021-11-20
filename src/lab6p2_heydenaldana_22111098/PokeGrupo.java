@@ -65,6 +65,17 @@ public class PokeGrupo
         miembros.remove(nombre);
         return true;
     }
+     
+     
+     public String listarMiembros ()
+     {
+         String mm = "";
+         for (String m : miembros) 
+         {
+             mm += m + "\n";
+         }
+         return mm;
+     }
     
     // get y set
 
